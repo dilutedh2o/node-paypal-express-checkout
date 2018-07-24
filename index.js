@@ -132,10 +132,10 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, re
 		if (err)
 			return callback(err, null);
 
-		if (data.ACK === 'Success')
+		if (data.ACK === 'Success') {
+			console.log('paypal.pay data', data);
 			callback(null, self.redirect + '?cmd=_express-checkout&useraction=commit&token=' + data.TOKEN);
-		else
-			callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
+		} else callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
 	});
 
 	return self;
